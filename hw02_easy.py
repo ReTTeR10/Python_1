@@ -42,7 +42,7 @@ print("Результат :", first_list)
 
 # import random
 #
-#
+# 
 # def rand_int():
 #     num = int(random.uniform(1, 20))   # Возможные цифры в списках( на данный момент от 1 до 20)
 #     return num
@@ -55,8 +55,6 @@ print("Результат :", first_list)
 #     second_list = []
 #     first_list_len = int(input('Введите длину 1-го списка: '))
 #     second_list_len = int(input('Введите длину 2-го списка: '))
-#
-#
 #     while first_list_len != 0:
 #         first_list = first_list + [rand_int()]
 #         first_list_len -= 1
@@ -69,19 +67,19 @@ print("Результат :", first_list)
 #
 #     if set(first_list) & set(second_list):
 #         print("Одинаковые числа есть")
-#         for num in first_list:
-#             for num1 in second_list:
-#                 if num == num1:
-#                     first_list.remove(num)
+#     for num1 in first_list:
+#         for num2 in second_list:
+#             if num1 == num2:
+#                 first_list.remove(num1)
 #         print('\nПервый список после удаления элементов, \nвходящих во второй: ', first_list)
 #         print('Второй список: ', second_list)
 #         ans = input('Повторить? y/n')
 #     else:
 #         print("Одинаковых чисел нет")
 #         ans = input('Повторить? y/n')
-
-
-
+#
+#
+#
 
 # Задача-3:
 # Дан произвольный список из целых чисел.
