@@ -30,6 +30,7 @@ for fruit in fruits:                                            #цикл в с�
 
 first_list = [14, 2, 15, 9, 29, 35, 40, 39, 59, 100]
 second_list = [6, 18, 9, 93, 40, 35, 97, 79]
+
 print("1ый список: ", first_list)
 print("2ой список: ", second_list)
 for num in set(first_list) & set(second_list):
@@ -45,11 +46,11 @@ print("Результат :", first_list)
 #     return num
 #
 #
-# first_list = []
-# second_list = []
 #
 # ans = ''
 # while ans != 'n':
+#     first_list = []
+#     second_list = []
 #     first_list_len = int(input('Введите длину 1-го списка: '))
 #     second_list_len = int(input('Введите длину 2-го списка: '))
 #
@@ -65,14 +66,14 @@ print("Результат :", first_list)
 #     print('Второй список из случайных чисел: ', second_list)
 #
 #     if set(first_list) & set(second_list):
-#         print("Такие числа есть")
+#         print("Одинаковые числа есть")
 #         for num in set(first_list) & set(second_list):
 #             first_list.remove(num)
 #         print('\nПервый список после удаления элементов, \nвходящих во второй: ', first_list)
 #         print('Второй список: ', second_list)
 #         ans = input('Повторить? y/n')
 #     else:
-#         print("Таких чисел нет")
+#         print("Одинаковых чисел нет")
 #         ans = input('Повторить? y/n')
 
 
