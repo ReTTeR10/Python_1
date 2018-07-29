@@ -3,12 +3,17 @@ __author__ = 'Мишин Егор Олегович'
 # Задание-1: уравнение прямой вида y = kx + b задано в виде строки.
 # Определить координату y точки с заданной координатой x.
 
-equation = 'y = -12x + 11111140.2121'            # Сюда можно подставить соответственно любое уравнение вида y = kx + b
+print("\n Задача №1")
+
+equation = 'y = -12x - 11111140.2121'            # Сюда можно подставить соответственно любое уравнение вида y = kx + b
 x = 2.5                                          # и все будет работать))
 # вычислите и выведите y
-
-y = float(equation[equation.find('=')+1:equation.find('x')]) * x + float(equation[equation.find('+')+1:])
-print('y= ', y)
+print('Уравнение :\n', equation, '\n x = ', x)
+if '+' in equation:
+    y = float(equation[equation.find('=') + 1:equation.find('x')]) * x + float(equation[equation.find('+') + 1:])
+elif '-' in equation:
+    y = float(equation[equation.find('=') + 1:equation.find('x')]) * x - float(equation[equation.find('-') + 1:])
+print('\n y = ', y)
 
 
 
@@ -23,12 +28,73 @@ print('y= ', y)
 #  (т.е. 2 символа для дня, 2 - для месяца, 4 - для года)
 
 # Пример корректной даты
-date = '01.11.1985'
+date = '01.11.1185'
 
 # Примеры некорректных дат
-date = '01.22.1001'
-date = '1.12.1001'
-date = '-2.10.3001'
+# date = '01.22.1001'
+# date = '1.12.1001'
+# date = '-2.10.3001'
+import sys
+
+
+date = '01.11.1185'
+
+
+
+count = 0
+
+
+if int(date[0:2]) in range(1, 31):
+    count += 1
+    day = int(date[0:2])
+    print('!!1')
+else:
+    print('Неправильный формат даты, проверьте день')
+    sys.exit()
+if int(date[3:5]) in range(1, 12):
+    month = date[3:5]
+    count += 1
+    if month == 2 | 4 | 6 | 9 | 11:
+        if day != 31:
+            count += 1
+            print("!!!2")
+        else:
+            print('Неправильный формат даты, проверьте день')
+            sys.exit()
+    else:
+        pass
+else:
+    pass
+if count == 0:
+    print('Неправильный формат датыБ проверьте день/месяц')
+    sys.exit()
+else:
+    pass
+if int(date[6:]) in range(1, 10000):
+    if len(date[6:]) == 4:
+        count += 1
+    else:
+        pass
+if count == 0:
+    print('Неправильный формат датыБ проверьте день/месяц')
+    sys.exit()
+else:
+    pass
+print('\ncount =', count)
+if count == 3:
+    print('Дата корректна')
+else:
+    print('Дата введена некорректно')
+
+
+
+
+
+
+
+
+
+
 
 
 # Задание-3: "Перевёрнутая башня" (Задача олимпиадного уровня)
