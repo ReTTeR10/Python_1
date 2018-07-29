@@ -83,9 +83,12 @@ else:
 
 print('\n Задача №3')
 
+print("Внезапно оказалось что решил эту задачу еще в easy, как одну из функций)). "
+      "\nОднако тут несколько иное решение")
+
 import random
 
-n = int(input("Введите число элементов списка: "))
+n = int(input("\nВведите число элементов списка: "))
 list = []
 if n > 0:
     while n != 0:
@@ -110,12 +113,14 @@ lst = [1, 3, 15, 4, 2, 4, 11, 1, 3, 9]
 lst1 = []
 lst2 = []
 
-for i in lst[:]:
-    count = lst.count(i)
-    if count == 1:
-        lst2.append(i)
+print('\nlst:  ', lst)
 
-lst1 = sorted(set(lst))
+for i in lst[:]:
+    count = lst.count(i)        # считаем количество повторов
+    if count == 1:
+        lst2.append(i)          # Если число уникальное в списке - добавляем в lst2
+
+lst1 = sorted(set(lst))         # избавляемся от повторов при помощи множества
 
 print('lst1: ', lst1)
 print('lst2: ', lst2)
