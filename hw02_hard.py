@@ -3,16 +3,19 @@ __author__ = 'Мишин Егор Олегович'
 # Задание-1: уравнение прямой вида y = kx + b задано в виде строки.
 # Определить координату y точки с заданной координатой x.
 
+# вычислите и выведите y
+
 print("\n Задача №1")
 
-equation = 'y = -12x - 11111140.2121'            # Сюда можно подставить соответственно любое уравнение вида y = kx + b
-x = 2.5                                          # и все будет работать))
-# вычислите и выведите y
+equation = 'y = -12x + 11111140.2121'   # Сюда можно подставить соответственно любое уравнение вида y = kx + b
+# equation = 'y = -12x - 11111140.2121'   -- пытался сделать для y = kx - b, но выпадает в ошибку(в # решение)
+x = 2.5
+
 print('Уравнение :\n', equation, '\n x = ', x)
 if '+' in equation:
     y = float(equation[equation.find('=') + 1:equation.find('x')]) * x + float(equation[equation.find('+') + 1:])
-elif '-' in equation:
-    y = float(equation[equation.find('=') + 1:equation.find('x')]) * x - float(equation[equation.find('-') + 1:])
+# elif '-' in equation:
+#    y = float(equation[equation.find('=') + 1:equation.find('x')]) * x + float(equation[equation.find('-') + 1:])
 print('\n y = ', y)
 
 
@@ -47,7 +50,6 @@ count = 0
 if int(date[0:2]) in range(1, 31):
     count += 1
     day = int(date[0:2])
-    print('!!1')
 else:
     print('Неправильный формат даты, проверьте день')
     sys.exit()
