@@ -3,7 +3,21 @@
 # Первыми элементами ряда считать цифры 1 1
 
 def fibonacci(n, m):
-    pass
+    line = [1, 1]
+    i = 2
+    print(1)
+    while i != m:
+        print(i)
+        line.append(int(line[i-2])+line[i-1])
+        i += 1
+
+    return print(line[n:m])
+
+
+n = int(input('n = '))
+m = int(input('m = '))
+
+fibonacci(n, m)
 
 # Задача-2:
 # Напишите функцию, сортирующую принимаемый список по возрастанию.
