@@ -72,13 +72,13 @@ def parallelogram(a, b, c, d):
     c1 = c.split(' ')
     d1 = d.split(' ')
 
-    ab = math.sqrt(((eval(b1[0])-eval(a1[0]))**2)+(eval(b1[1])-eval(a1[1]))**2)
+    ab = math.sqrt(((eval(b1[0])-eval(a1[0]))**2)+(eval(b1[1])-eval(a1[1]))**2)  # Считаем длину отрезков
     cd = math.sqrt(((eval(d1[0])-eval(c1[0]))**2)+(eval(d1[1])-eval(c1[1]))**2)
     ad = math.sqrt(((eval(d1[0])-eval(a1[0]))**2)+(eval(d1[1])-eval(a1[1]))**2)
     bc = math.sqrt(((eval(c1[1])-eval(b1[1]))**2)+(eval(c1[0])-eval(b1[0]))**2)
     print('\nAB = ', ab, '\nCD = ', cd, '\nAD = ', ad, '\nBC = ', bc)
     if ab == cd:
-        if ad == bc:
+        if ad == bc:                            # по свойству пар-ма, если противоположные стороны равны то это пар-м
             print('Да, является')
         else:
             print('Нет, не является')
