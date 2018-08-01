@@ -61,11 +61,38 @@ print('\n Задача 4 - параллелогамм')
 
 def parallelogram(a, b, c, d):
 
+    import math
+    a1 = ''
+    b1 = ''
+    c1 = ''
+    d1 = ''
+
+    a1 = a.split(' ')
+    b1 = b.split(' ')
+    c1 = c.split(' ')
+    d1 = d.split(' ')
+
+    ab = math.sqrt(((eval(b1[0])-eval(a1[0]))**2)+(eval(b1[1])-eval(a1[1]))**2)
+    cd = math.sqrt(((eval(d1[0])-eval(c1[0]))**2)+(eval(d1[1])-eval(c1[1]))**2)
+    ad = math.sqrt(((eval(d1[0])-eval(a1[0]))**2)+(eval(d1[1])-eval(a1[1]))**2)
+    bc = math.sqrt(((eval(c1[1])-eval(b1[1]))**2)+(eval(c1[0])-eval(b1[0]))**2)
+    print('\nAB = ', ab, '\nCD = ', cd, '\nAD = ', ad, '\nBC = ', bc)
+    if ab == cd:
+        if ad == bc:
+            print('Да, является')
+        else:
+            print('Нет, не является')
+    else:
+        print('Нет, не является')
+    return
 
 
 
-A = input("Введите координаты A, через пробел: ")
-B = input("Введите координаты A, через пробел: ")
-C = input("Введите координаты A, через пробел: ")
-D = input("Введите координаты A, через пробел: ")
+print('Введите координаты вида "x y", через пробел')
+A1 = input("A1: ")              # 1 3    <====    ПРИМЕР
+A2 = input("А2: ")              # 4 7
+A3 = input("А3: ")              # 2 8
+A4 = input("А4: ")              # -1 4
 
+
+parallelogram(A1, A2, A3, A4)
