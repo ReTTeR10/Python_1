@@ -9,26 +9,34 @@ print('\n Задача 1 - округление')
 
 def my_round(number, ndigits):
 
-   b=str(number).split('.')
-   d=b[1]                     #вся дробная часть
+   b = str(number).split('.')
+   d = b[1]                                             # берем всю дробную часть
+   z = '1'
    try:
-       c=int((b[1])[ndigits:])            #лишняя часть дробной части
+       c = int((b[1])[ndigits:])                        # лишнее дробной части
    except Exception:
        return number
-   k = (len(str(d))-ndigits if len(str(d))-ndigits > 0 else 1)
-   z='1'+'0'*k    #число по которому мы смотрим в какую сторону будет округление
+   k = (len(str(d)) - ndigits if len(str(d)) - ndigits > 0 else 1)
+   z += '0'*k                                           # определяем, в какую сторону будет округление
+
+
    if (int(z)-c) >= c:
-       itog = b[0]+ '.' + (b[1])[:ndigits]
+       num = b[0] + '.' + (b[1])[:ndigits]
    else:
        if len(str(int((b[1])[:ndigits]) + 1)) == ndigits:
-           itog = float(b[0] + '.' + str(int((b[1])[:ndigits])+1))  #доп проверка на случай увеличения целой части числа
+           num = float(b[0] + '.' + str(int((b[1])[:ndigits])+1))  # проверка на случай увеличения целой части числа
        else:
-           itog = float(str(int(b[0])+1) + '.0')
-   return itog
+           num = float(str(int(b[0])+1) + '.0')
+   return num
 
-print(my_round(5.000006, 4) , round(5.000006, 4))
-print(my_round(2.1999967, 5), round(2.1999967, 5))
-print(my_round(2.9999967, 5), round(2.9999967, 5))
+print(my_round(5.000006, 4))
+print('\n обычный round: ', round(5.000006, 4), '\n')
+
+print(my_round(2.1999967, 5))
+print('\n обычный round: ', round(2.1999967, 5), '\n')
+
+print(my_round(2.9999967, 5))
+print('\n обычный round: ', round(2.9999967, 5), '\n')
 
 
 # print(my_round(2.1234567, 5))
