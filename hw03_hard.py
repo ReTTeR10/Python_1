@@ -32,3 +32,30 @@ __author__ = 'Мишин Егор Олегович'
 # Подсказка:
 # Чтобы получить список больших букв русского алфавита:
 # print(list(map(chr, range(ord('А'), ord('Я')+1))))
+
+print('\n Задача № 3 - фрукты')
+
+import os
+
+path = os.path.join('C:/', 'Projects/', 'git/', 'data/', 'fruits.txt')
+file = open(path, 'r', encoding='UTF-8')            # Читаем файл
+test = file.read()
+file.close()
+test = test.split('\n')
+n = 0
+while n < len(test):
+    if test[n] == '':
+        del test[n]
+    else:
+        n += 1
+letter = test[0][0]
+path=os.path.join('C:/Projects/git/data', str('fruits_'+letter+'.txt'))   # Поставить свою букву
+for i in range(len(test)):
+    if test[i][0] == letter:
+        file = open(path, 'a', encoding='UTF-8')
+        file.write(test[i]+'\n')
+        file.close()
+    else:
+        letter = str(test[i][0])
+        path = os.path.join('C:/Projects/git/data', str('fruits_'+letter+'.txt'))
+print('Готово')
