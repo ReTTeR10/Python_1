@@ -4,37 +4,31 @@ __author__ = 'Мишин Егор Олегович'
 # до кол-ва знаков (кол-во знаков передается вторым аргументом).
 # Округление должно происходить по математическим правилам (0.6 --> 1, 0.4 --> 0).
 # Для решения задачи не используйте встроенные функции и функции из модуля math.
+print('\n Задача 1 - округление')
 
-#a = []
 
 def my_round(number, ndigits):
-    pass
-#     a.append([[number].index('.')])
-# ##    b = str([number])
-#     print(b, type(b), '.' in b)
-# o = 0
-    # for i in b[b.index('.')+1:]:
-#     #     if ndigits < len(b):
-#     #         for k in b[-1:b.index('.'+ndigits)]:
-#     #             if int(k) > 4:
-#     #                 if o != 0:
-#     #
-#     #                 o += 1
-##i = -1
-##while i !=
 
+   b=str(number).split('.')
+   d=b[1]                     #вся дробная часть
+   try:
+       c=int((b[1])[ndigits:])            #лишняя часть дробной части
+   except Exception:
+       return number
+   k = (len(str(d))-ndigits if len(str(d))-ndigits > 0 else 1)
+   z='1'+'0'*k    #число по которому мы смотрим в какую сторону будет округление
+   if (int(z)-c) >= c:
+       itog = b[0]+ '.' + (b[1])[:ndigits]
+   else:
+       if len(str(int((b[1])[:ndigits]) + 1)) == ndigits:
+           itog = float(b[0] + '.' + str(int((b[1])[:ndigits])+1))  #доп проверка на случай увеличения целой части числа
+       else:
+           itog = float(str(int(b[0])+1) + '.0')
+   return itog
 
-     #   else:
-      #      0
-  ##      a.append(i)
-
-
-
-    # print(a)
-#    for i in a[:]:
-#         pass
-#     print(type(a))
-#     pass
+print(my_round(5.000006, 4) , round(5.000006, 4))
+print(my_round(2.1999967, 5), round(2.1999967, 5))
+print(my_round(2.9999967, 5), round(2.9999967, 5))
 
 
 # print(my_round(2.1234567, 5))
@@ -47,6 +41,8 @@ def my_round(number, ndigits):
 # Решение реализовать в виде функции.
 # Билет считается счастливым, если сумма его первых и последних цифр равны.
 # !!!P.S.: функция не должна НИЧЕГО print'ить
+print('\n Задача №2 - счастливый билетик')
+
 
 def lucky_ticket(ticket_number):
     ticket_number = str(ticket_number)  # преобразуем число в строку
@@ -70,7 +66,7 @@ def lucky_ticket(ticket_number):
     return ticket_number
 
 
-
+print('\n')
 print(lucky_ticket(123456))
 print(lucky_ticket(12321))
 print(lucky_ticket(436751))
