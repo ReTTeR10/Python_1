@@ -32,10 +32,12 @@ __author__ = 'Мишин Егор Олегович'
 # Подсказка:
 # Чтобы получить список больших букв русского алфавита:
 # print(list(map(chr, range(ord('А'), ord('Я')+1))))
+import os
+
 
 print('\n Задача № 3 - фрукты')
 
-import os
+
 
 path = os.path.join('C:/', 'Projects/', 'git/', 'data/', 'fruits.txt')
 file = open(path, 'r', encoding='UTF-8')            # Читаем файл
@@ -43,19 +45,20 @@ test = file.read()
 file.close()
 test = test.split('\n')
 n = 0
-while n < len(test):
+while n < len(test):       # В этом цикле мы удаляем оставшиеся после записи элементы вида '' в списке
     if test[n] == '':
         del test[n]
     else:
         n += 1
-letter = test[0][0]
-path=os.path.join('C:/Projects/git/data', str('fruits_'+letter+'.txt'))   # Поставить свою букву
+letter = test[0][0]         # Записиваем в переменную заглавную букву первого элемента
+path = os.path.join('C:/Projects/git/data', str('fruits_'+letter+'.txt'))   # естественно,
+#  при проверке надо прописать путь откуда программа будет брать файл fruits.txt, там же будут и новые файлы
 for i in range(len(test)):
     if test[i][0] == letter:
         file = open(path, 'a', encoding='UTF-8')
-        file.write(test[i]+'\n')
+        file.write(test[i]+'\n')                # Записываем все слова с одной заглавной буквой в файл
         file.close()
     else:
-        letter = str(test[i][0])
+        letter = str(test[i][0])                # Иначе создаем файл с новой буквой
         path = os.path.join('C:/Projects/git/data', str('fruits_'+letter+'.txt'))
 print('Готово')
