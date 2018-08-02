@@ -55,8 +55,8 @@ def lucky_ticket(ticket_number):
 
     if len(ticket_number) != 6:         # проверяем количество цифр
         ticket_number = 'Неверное число, должно быть шестизначное'
-        return ticket_number
-
+        return ticket_number            # Однако, если число начинается с 0, то программа работает некорректно
+                                        # уже не успел попроавить эту особенность...
     for i in ticket_number[:3]:         # ищем сумму первых 3х цифр
         sum1 += int(i)
     for i in ticket_number[3:]:
@@ -71,6 +71,6 @@ def lucky_ticket(ticket_number):
 
 
 
-print(lucky_ticket(123006))
+print(lucky_ticket(123456))
 print(lucky_ticket(12321))
 print(lucky_ticket(436751))
