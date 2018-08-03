@@ -13,7 +13,7 @@ import random
 
 my_list = [random.randint(-10,10) for _ in range(10)]
 my_list1 = [elem**2 for elem in my_list]
-print('',my_list, '\n', my_list1)
+print('Список 1: ', my_list, '\nСписок 2: ', my_list1)
 
 # Задание-2:
 # Даны два списка фруктов.
