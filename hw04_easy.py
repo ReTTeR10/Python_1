@@ -19,9 +19,19 @@ print('Список 1: ', my_list, '\nСписок 2: ', my_list1)
 # Даны два списка фруктов.
 # Получить список фруктов, присутствующих в обоих исходных списках.
 
+# fruits1 = [fruit for fruit in ['banana', 'coconut', 'apple', 'orange']]
+# fruits2 = [fruit for fruit in ['kiwi', 'banana', 'mango', 'blackberry', 'watermelon']]
+# print(fruits1)
+# print(fruits2)
+# print(fruit if )
+
+
+print(round(3.3%3,1))
+
 # Задание-3:
 # Дан список, заполненный произвольными числами.
 # Получить список из элементов исходного, удовлетворяющих следующим условиям:
 # + Элемент кратен 3
 # + Элемент положительный
 # + Элемент не кратен 4
+
