@@ -123,7 +123,7 @@ import os
 
 print('\n Задача № 3 - 2500')
 
-z = 'C:\Projects\git'
+z = 'C:\Projects\git\python'
 path = os.path.join(z, str('number.txt'))
 f = open(path, 'a', encoding = 'UTF-8')
 num1 = ''
@@ -132,18 +132,22 @@ for i in num:
     num1 += str(i)
 f.write(num1+'\n')
 print(num, '\n', len(num))
+f.close()
+
 
 # num1 = [1, 2, 4, 4, 4, 2, 1, 0, 2, 2, 2, 2, 5, 7, 3, 2, 5, 1] - тестовый список для проверки
 
+f = open(path, 'r', encoding = 'UTF-8')
+v = f.read()
 max = []
 pret = []
 i = 0
 l = 1
-while i!= len(num)-1:
+while i != len(v)-1:
 #while i != len(num1)-1:
-    pret = [num[i]]
-    while num[i] == num[i+1]:
-        pret.append(num[i])
+    pret = [v[i]]
+    while v[i] == v[i+1]:
+        pret.append(v[i])
         i += 1
     if len(pret) > len(max):
         max = pret.copy()
