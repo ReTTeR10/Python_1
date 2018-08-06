@@ -4,6 +4,8 @@ __author__ = 'Мишин Егор Олегович'
 # 1 или более символов в верхнем регистре.
 # Т.е. из строки "mtMmEZUOmcq" нужно получить ['mt', 'm', 'mcq']
 # Решить задачу двумя способами: с помощью re и без.
+print('\n Задача № 1 - Верхний регистр')
+
 import re
 line = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysmNO'\
        'GIPHpEMujalpPLNzRWXfwHQqwksrFeipEUlTLeclMwAoktKlfUBJHPsnawvjPhfgewVzK'\
@@ -21,7 +23,10 @@ line = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysmNO'\
        'XiUWgsKQrDOeZoNlZNRvHnLgCmysUeKnVJXPFIzvdDyleXylnKBfLCjLHntltignbQoiQ'\
        'zTYwZAiRwycdlHfyHNGmkNqSwXUrxGc'
 
-print(re.findall('[A-Z]*([a-z]+)[A-Z]', line))
+print('\n Вариант с re: ', re.findall('[A-Z]*([a-z]+)[A-Z]', line))
+
+
+
 
 
 
@@ -36,6 +41,8 @@ print(re.findall('[A-Z]*([a-z]+)[A-Z]', line))
 # "GAMkgAYEOmHBSQsSUHKvSfbmxULaysmNOGIPHpEMujalpPLNzRWXfwHQqwksrFeipEUlTLec"
 # нужно получить список строк: ['AY', 'NOGI', 'P']
 # Решить задачу двумя способами: с помощью re и без.
+print('\n Задача № 2 - 2 в нижнем и 2 в верхнем')
+
 import re
 line_2 = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysm'\
        'NOGIPHpEMujalpPLNzRWXfwHQqwksrFeipEUlTLeclMwAoktKlfUBJHPsnawvjPhfgewV'\
@@ -53,7 +60,9 @@ line_2 = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysm'\
        'JFaXiUWgsKQrDOeZoNlZNRvHnLgCmysUeKnVJXPFIzvdDyleXylnKBfLCjLHntltignbQ'\
        'oiQzTYwZAiRwycdlHfyHNGmkNqSwXUrxGC'
 
-print(re.findall('[a-z]{2}([A-Z]+)[A-Z]{2}', line_2))
+print('\n Вариант с re: ', re.findall('[a-z]{2}([A-Z]+)[A-Z]{2}', line_2))
+
+
 
 # Задание-3:
 # Напишите скрипт, заполняющий указанный файл (самостоятельно задайте имя файла)
@@ -64,13 +73,19 @@ print(re.findall('[a-z]{2}([A-Z]+)[A-Z]{2}', line_2))
 import random
 import os
 
+print('\n Задача № 3 - 2500')
 
-# path = os.path.join('C:/', 'Projects/', 'git/', 'data/', 'fruits.txt')
-
+z = 'C:\Projects\git'
+path = os.path.join(z, str('number.txt'))
+f = open(path, 'a', encoding = 'UTF-8')
+num1 = ''
 num = [random.randint(0, 9) for _ in range(2500)]
+for i in num:
+    num1 += str(i)
+f.write(num1+'\n')
 print(num, '\n', len(num))
 
-num1 = [1, 2, 4, 4, 4, 2, 1, 0, 2, 2, 2, 2, 5, 7, 3, 2, 5, 1]
+# num1 = [1, 2, 4, 4, 4, 2, 1, 0, 2, 2, 2, 2, 5, 7, 3, 2, 5, 1] - тестовый список для проверки
 
 max = []
 pret = []
@@ -80,12 +95,8 @@ while i!= len(num)-1:
 #while i != len(num1)-1:
     pret = [num[i]]
     while num[i] == num[i+1]:
-        l += 1
         pret.append(num[i])
         i += 1
-        # print(pret)
-        l = 1
-    #print('2', pret)
     if len(pret) > len(max):
         max = pret.copy()
         pret = []
@@ -93,5 +104,4 @@ while i!= len(num)-1:
         pass
     i += 1
     pret = []
-print(max)
-#print('1', pret)
+print('максимальная последовательность: ', max)
