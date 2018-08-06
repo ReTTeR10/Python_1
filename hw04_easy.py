@@ -49,8 +49,10 @@ print('\n Исходный список: ', num)
 answer1 = [i for i in num if i % 3 == 0]
 answer2 = [i for i in num if i > 0]
 answer3 = [i for i in num if i % 4 != 0]
+answer4 = [i for i in num if i % 4 != 0 and i > 0 and i % 4 != 0]
 
-print('\n', answer1, '\n', answer2, '\n', answer3)
+print('\n элементы кратные 3:', answer1, '\n Элементы положительные:', answer2, '\n Элементы не кратные 4',
+      answer3, '\n элементы, удовлетворяющие всем условиям:', answer4)
 
 
 
