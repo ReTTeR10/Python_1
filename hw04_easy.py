@@ -42,8 +42,8 @@ print('\n В обоих списках присутствуют: ', fruits3)
 import random
 print('\n Задание 3 - произвольные числа')
 
-#num = [random.randint(-100, 100) for _ in range(10)]
-num = [l for l in [3.3, 21, 10, 4, -4, 0, -2.1, 2.3, 2.4]]
+num = [random.randint(-100, 100) for _ in range(10)]
+
 
 print('\n Исходный список: ', num)
 answer1 = [i for i in num if i % 3 == 0]
@@ -52,6 +52,5 @@ answer3 = [i for i in num if i % 4 != 0]
 
 print('\n', answer1, '\n', answer2, '\n', answer3)
 
-print(3.3 % 3 == 0)
 
 
