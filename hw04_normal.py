@@ -7,6 +7,7 @@ __author__ = 'Мишин Егор Олегович'
 print('\n Задача № 1 - Верхний регистр')
 
 import re
+
 line = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysmNO'\
        'GIPHpEMujalpPLNzRWXfwHQqwksrFeipEUlTLeclMwAoktKlfUBJHPsnawvjPhfgewVzK'\
        'TUfSYtBydXaVIpxWjNKgXANvIoumesCSSvjEGRJosUfuhRRDUuTQwLlJJJDdkVjfSAHqn'\
@@ -23,8 +24,22 @@ line = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysmNO'\
        'XiUWgsKQrDOeZoNlZNRvHnLgCmysUeKnVJXPFIzvdDyleXylnKBfLCjLHntltignbQoiQ'\
        'zTYwZAiRwycdlHfyHNGmkNqSwXUrxGc'
 
-print('\n Вариант с re: ', re.findall('[A-Z]*([a-z]+)[A-Z]', line))
+print('\n Вариант с re: ', re.findall('[A-Z]*([a-z]+)[A-Z]', line))    # ищем совпадения по шаблону
 
+
+i = 0
+alp = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'                                     # строка с алфавитом из заглавных букв
+l = ''
+while i != len(line)-1:
+    if line[i] in alp:
+        #l += line[i] + ','
+        while line[i] in alp:
+            i += 1
+        l += ','
+    else:
+        l += line[i]
+        i+=1
+print('\n Вариант без re: ', l)
 
 
 
@@ -61,7 +76,40 @@ line_2 = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysm'\
        'oiQzTYwZAiRwycdlHfyHNGmkNqSwXUrxGC'
 
 print('\n Вариант с re: ', re.findall('[a-z]{2}([A-Z]+)[A-Z]{2}', line_2))
+i = 2
+alp = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+alp1 = str.lower(alp)
+l = ''
+while i != len(line_2)-2:
+    if line_2[i] in alp:
+        if line_2[i-2] in alp1 and line_2[i-1] in alp1:
+            l += ','
+            while line_2[i+1] in alp and line_2[i+2] in alp:
+                l += line_2[i]
+                i += 1
+        else:
+            i += 1
+        i += 1
+    else:
+        i += 1
 
+    # if line_2[i] in alp:
+    #     if line_2[i-1] and line_2[-2] in alp1:
+    #         if line_2[i+1] and line_2[i+2] in alp:
+    #
+    #     #l += line[i] + ','
+    #             l += line_2[i]
+    #             i += 1
+    #         else:
+    #             i += 1
+    #
+    #     else:
+    #         i += 1
+    #     l += ','
+    # else:
+    #     l += line_2[i]
+    #     i+=1
+print('\n Вариант без re: ', l)
 
 
 # Задание-3:
