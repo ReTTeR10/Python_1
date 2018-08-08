@@ -35,13 +35,23 @@ else:
 print('\n Задача 2 - список папок')
 
 def list_dir():
-    from os import listdir
-    print('\n Список папок в тпекущей директории: ', listdir())
+    from os import listdir          # исправить, listdir - неправильное решение
+    print('\n Список папок в текущей директории: ', listdir())
 
 list_dir()
+
+
+
 # Задача-3:
 # Напишите скрипт, создающий копию файла, из которого запущен данный скрипт.
 #путь откуда вызвал и присваиваешь новый
 
-def file_copy()
-    pass
+print('\n Задача 3 - Копия исполняемого файла')
+
+def file_copy():
+    from shutil import copyfile
+    from sys import argv
+    copyfile(argv[0],(argv[0].split('.')[0]) + '_copy.' + argv[0].split('.')[1])
+
+file_copy()
+print('Копия успешно сделана')
