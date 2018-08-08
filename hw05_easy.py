@@ -1,3 +1,5 @@
+from os.path import isdir
+
 __author__ = 'Мишин Егор Олегович'
 # Задача-1:
 # Напишите скрипт, создающий директории dir_1 - dir_9 в папке,
@@ -35,8 +37,12 @@ else:
 print('\n Задача 2 - список папок')
 
 def list_dir():
-    from os import listdir          # исправить, listdir - неправильное решение
-    print('\n Список папок в текущей директории: ', listdir())
+    from os import listdir, path, getcwd
+    dir_list = []
+    for i in listdir(getcwd()):
+        if path.isdir(i):
+            dir_list.append(i)
+    print('\n Список папок в текущей директории: ', dir_list)
 
 list_dir()
 
