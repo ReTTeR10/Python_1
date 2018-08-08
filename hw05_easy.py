@@ -5,37 +5,43 @@ __author__ = 'Мишин Егор Олегович'
 # И второй скрипт, удаляющий эти папки.
 print('Задача 1: создание/удаление папок')
 
-import os
+from os import mkdir, rmdir, listdir
 
 def create_dir(name_dir):       # создаем папки в директории
-    os.mkdir(name_dir)
+    mkdir(name_dir)
 
 def delete_dir(name_dir):       # удаляем папки в директори
-    os.rmdir(name_dir)
+    rmdir(name_dir)
 
 ans = input('Создать папки? y/n\n')
 if ans == 'y':
     for i in range(9):
-        create_dir('dir_' + str(i))
+        create_dir('dir_' + str(i+1))
 else:
     pass
 
-print('\n Папки в текущей директории: ', os.listdir(), '\n')
+print('\n Папки в текущей директории: ', listdir(), '\n')
 
 ans1 = input('Удалить папки dir_1 : dir_9? y/n\n')
 
 if ans1 == 'y':
     for i in range(9):
-        delete_dir('dir_'+str(i))
+        delete_dir('dir_'+str(i+1))
 else:
     pass
 
 # Задача-2:
 # Напишите скрипт, отображающий папки текущей директории.
+print('\n Задача 2 - список папок')
 
-#def listdir():
-   # os.list.dir()
+def list_dir():
+    from os import listdir
+    print('\n Список папок в тпекущей директории: ', listdir())
 
+list_dir()
 # Задача-3:
 # Напишите скрипт, создающий копию файла, из которого запущен данный скрипт.
 #путь откуда вызвал и присваиваешь новый
+
+def file_copy()
+    pass
