@@ -14,4 +14,140 @@
 
 # P.S. По возможности, сделайте кросс-платформенную реализацию.
 
-реализация как модуль 
+
+
+import os
+import sys
+
+print('sys.argv = ', sys.argv)
+
+homepath = os.path.abspath(sys.argv[0]).split(sys.argv[0])[0]
+
+class color:
+   PURPLE = '\033[95m'
+   CYAN = '\033[96m'
+   DARKCYAN = '\033[36m'
+   BLUE = '\033[94m'
+   GREEN = '\033[92m'
+   YELLOW = '\033[93m'
+   RED = '\033[91m'
+   BOLD = '\033[1m'
+   UNDERLINE = '\033[4m'
+   END = '\033[0m'
+
+
+
+def print_help():
+    print("help - получение справки")
+    print("mkdir <dir_name> - создание директории")
+    print("ping - тестовый ключ")
+    print("cp - <file_name.extention> - копировать файл")
+    print("rm - <file_name.extention> - удалить файл")
+    print("cd - <dir_name> - переход в указанную папку")
+    print("ls - Полный путь к текущей директории")
+
+
+def make_dir():
+    if not dir_name:
+        print("Необходимо указать имя директории вторым параметром")
+        return
+    dir_path = os.path.join(os.getcwd(), dir_name)
+    try:
+        os.mkdir(dir_path)
+        print('директория {} создана'.format(dir_name))
+    except FileExistsError:
+        print('директория {} уже существует'.format(dir_name))
+
+
+def ping():
+    print(color.GREEN + 'pong' + color.END)
+
+
+def cp():
+    if not file_name:
+        print("Необходимо указать имя файла вторым параметром")
+        return
+    from shutil import copyfile
+    copyfile(file_name, (file_name.split('.')[0]) + '_copy.' + file_name.split('.')[1])
+    print("Файл скопирован")
+
+
+def rm():
+    if not file_name:
+        print("Необходимо указать имя файла вторым параметром")
+        return
+    from os import remove
+    if input('\n Вы уверены!? YES/NO\n') == 'YES':
+        remove(file_name)
+        print('Удалено')
+    else:
+        print("Файл не удален")
+
+
+def changedir():
+    if not dir_name:
+        print("Необходимо указать имя папки вторым параметром")
+        return
+    from os import chdir
+    f = open(os.path.join(homepath, 'settings.txt'), 'w')
+    chdir(dir_name)
+    f.write(os.getcwd())
+    print("Вы перешли в директорию:", os.getcwd())
+    f.close()
+
+def fullpath():
+    print('Полный путь к текущей директории:', os.getcwd())
+
+
+
+do = {
+    "help": print_help,
+    "mkdir": make_dir,
+    "ping": ping,
+    "cp": cp,
+    "rm": rm,
+    "cd": changedir,
+    "ls": fullpath
+}
+
+
+try:
+    if sys.argv[1]:
+        if os.path.isfile('settings.txt'):
+            f = open('settings.txt', 'r')
+            os.chdir(f.read())
+            f.close()
+            print("Текущая папка из settings.txt:", os.getcwd())
+    else:
+        pass
+except IndexError:
+    dir_name = None
+
+
+print('\n')
+
+try:
+    dir_name = sys.argv[2]
+except IndexError:
+    dir_name = None
+
+try:
+    file_name = sys.argv[2]  # Функционал не поменялся, так для красоты))(т.к. второй параметр может указывать на файл
+except IndexError:
+    file_name = None
+
+try:
+    key = sys.argv[1]
+except IndexError:
+    key = None
+
+
+if key:
+    if do.get(key):
+        do[key]()
+    else:
+        print("Задан неверный ключ")
+        print("Укажите ключ help для получения справки")
+else:
+    print(color.RED + color.BOLD + 'Укажите параметры' + color.END)
+    print_help()
