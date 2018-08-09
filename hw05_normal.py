@@ -14,8 +14,9 @@ __author__ = 'Мишин Егор Олегович'
 import os
 import easy_module
 
-def program_ui():
+def program_ui():      # создаем функцию меню
     print('\nДобро пожаловать!\n ---- M E N U ----')
+
     button = input("\n 1 - Перейти в папку\n 2 - Просмотреть содержимое текущей папки"
                    "\n 3 - Удалить папку\n 4 - Создать папку \n Для выхода напишите exit")
     return button
@@ -24,18 +25,37 @@ def program_ui():
 
 button = ''
 
-while button != 'exit':
+while button != 'exit':   # пока не ввели exit продолжается выполнение программы, далее вроде вполне понятно
+                            # подтягиваем функции из модуля easy_module.py, лежащего в папке с hw05_normal.py
     button = program_ui()
     try:
         if button == '1':
             print('Текущая дериктория: ', os.getcwd())
             new_dir = input('Введите желаемую директорию:')
             easy_module.change_dir(new_dir)
-            print('Переход выполнен! os.getcwd = ', os.getcwd())
-        if button == '2':
+            print('Переход выполнен! os.getcwd() = ', os.getcwd())
+        elif button == '2':
+            easy_module.list_dir()
+        elif button == '3':
+            try:
+                new_dir1 = input('Введите адрес директории которую хотите удалить \n')
+                easy_module.delete_dir(new_dir1)
+                print('Успешно удалили папку %s' % new_dir1)
+            except Exception:
+                 print('Невозможно удалить папку %s. Проверьте правильность ввода' % new_dir1)
+        elif button == '4':
+            try:
+                new_dir2 = input('Введите имя директории которую хотите создать\n')
+                easy_module.create_dir(new_dir2)
+                print('Успешно создали %s' % new_dir2)
+            except Exception:
+                print('Невозможно создать папку. Возможно она уже существует')
+        elif button == 'exit':
+            print('До новых встреч!')
+    except Exception:
+        pass
 
-    print('\n', button)
+
 # Для решения данной задачи используйте алгоритмы из задания easy,
 # оформленные в виде соответствующих функций,
 # и импортированные в данный файл из easy.py
-# easy.py как модуль
