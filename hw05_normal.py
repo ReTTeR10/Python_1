@@ -11,20 +11,30 @@ __author__ = 'Мишин Егор Олегович'
 # и выводит результат действия: "Успешно создано/удалено/перешел",
 # "Невозможно создать/удалить/перейти"
 
+import os
+import easy_module
+
 def program_ui():
     print('\nДобро пожаловать!\n ---- M E N U ----')
     button = input("\n 1 - Перейти в папку\n 2 - Просмотреть содержимое текущей папки"
-                   "\n 3 - Удалить папку\n 4 - Создать папку \n")
+                   "\n 3 - Удалить папку\n 4 - Создать папку \n Для выхода напишите exit")
     return button
 
-def ifexit():
-    pass
 
-button = program_ui()
-print(button)
-#while ans != 'quit':
-    #try
 
+button = ''
+
+while button != 'exit':
+    button = program_ui()
+    try:
+        if button == '1':
+            print('Текущая дериктория: ', os.getcwd())
+            new_dir = input('Введите желаемую директорию:')
+            easy_module.change_dir(new_dir)
+            print('Переход выполнен! os.getcwd = ', os.getcwd())
+        if button == '2':
+            
+    print('\n', button)
 # Для решения данной задачи используйте алгоритмы из задания easy,
 # оформленные в виде соответствующих функций,
 # и импортированные в данный файл из easy.py
