@@ -1,3 +1,4 @@
+__author__ = 'Мишин Егор Олегович'
 # Задание-1:
 # Доработайте реализацию программы из примера examples/5_with_args.py,
 # добавив реализацию следующих команд (переданных в качестве аргументов):
@@ -14,6 +15,8 @@
 
 # P.S. По возможности, сделайте кросс-платформенную реализацию.
 
+# В этой программе добавил изменение цвета шрифта для ответа. Например при зпередачи аргумента ping ответ pong должен
+# стать зеленым. Однако при тестировании на другом компьютере текст не покрасился
 
 
 import os
@@ -22,19 +25,6 @@ import sys
 print('sys.argv = ', sys.argv)
 
 homepath = os.path.abspath(sys.argv[0]).split(sys.argv[0])[0]
-
-class color:
-   PURPLE = '\033[95m'
-   CYAN = '\033[96m'
-   DARKCYAN = '\033[36m'
-   BLUE = '\033[94m'
-   GREEN = '\033[92m'
-   YELLOW = '\033[93m'
-   RED = '\033[91m'
-   BOLD = '\033[1m'
-   UNDERLINE = '\033[4m'
-   END = '\033[0m'
-
 
 
 def print_help():
@@ -60,7 +50,7 @@ def make_dir():
 
 
 def ping():
-    print(color.GREEN + 'pong' + color.END)
+    print('pong')
 
 
 def cp():
@@ -132,7 +122,7 @@ except IndexError:
     dir_name = None
 
 try:
-    file_name = sys.argv[2]  # Функционал не поменялся, так для красоты))(т.к. второй параметр может указывать на файл
+    file_name = sys.argv[2]  # второй параметр может указывать на файл, поэтому используем argv[2]
 except IndexError:
     file_name = None
 
@@ -149,5 +139,5 @@ if key:
         print("Задан неверный ключ")
         print("Укажите ключ help для получения справки")
 else:
-    print(color.RED + color.BOLD + 'Укажите параметры' + color.END)
+    print('\n Укажите параметры!')
     print_help()
