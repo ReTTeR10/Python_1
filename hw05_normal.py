@@ -33,7 +33,7 @@ while button != 'exit':
             easy_module.change_dir(new_dir)
             print('Переход выполнен! os.getcwd = ', os.getcwd())
         if button == '2':
-            
+
     print('\n', button)
 # Для решения данной задачи используйте алгоритмы из задания easy,
 # оформленные в виде соответствующих функций,
