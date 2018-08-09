@@ -24,10 +24,10 @@ import sys
 
 print('sys.argv = ', sys.argv)
 
-homepath = os.path.abspath(sys.argv[0]).split(sys.argv[0])[0]
+homepath = os.path.abspath(sys.argv[0]).split(sys.argv[0])[0]    # Задаем домашнюю директорию программы
 
 
-def print_help():
+def print_help():              # Функция help
     print("help - получение справки")
     print("mkdir <dir_name> - создание директории")
     print("ping - тестовый ключ")
@@ -37,7 +37,7 @@ def print_help():
     print("ls - Полный путь к текущей директории")
 
 
-def make_dir():
+def make_dir():                 # функция создать папку
     if not dir_name:
         print("Необходимо указать имя директории вторым параметром")
         return
@@ -49,11 +49,11 @@ def make_dir():
         print('директория {} уже существует'.format(dir_name))
 
 
-def ping():
+def ping():                 # тестовая функция ping
     print('pong')
 
 
-def cp():
+def cp():                   # функция копирования файла
     if not file_name:
         print("Необходимо указать имя файла вторым параметром")
         return
@@ -62,7 +62,7 @@ def cp():
     print("Файл скопирован")
 
 
-def rm():
+def rm():                   # Функция удаления файла
     if not file_name:
         print("Необходимо указать имя файла вторым параметром")
         return
@@ -74,22 +74,25 @@ def rm():
         print("Файл не удален")
 
 
-def changedir():
+def changedir():            # функция смены папки
     if not dir_name:
         print("Необходимо указать имя папки вторым параметром")
         return
     from os import chdir
     f = open(os.path.join(homepath, 'settings.txt'), 'w')
+    # создаем файл settings.txt, из которого программа в дальнейшем поймет в какой директории ей необходимо работать
     chdir(dir_name)
     f.write(os.getcwd())
     print("Вы перешли в директорию:", os.getcwd())
     f.close()
 
 def fullpath():
-    print('Полный путь к текущей директории:', os.getcwd())
+    print('Полный путь к текущей директории:', os.getcwd())  # Функция выводит полный путь к текущей директории,
+    # должна быть универсальна
 
 
-
+# был удивлен тем как просто скрипт понимает что ему нужно сделать. Изначально я думал о более сложном варианте,
+# чем "пробегание" по словарю. Интересно
 do = {
     "help": print_help,
     "mkdir": make_dir,
@@ -101,7 +104,7 @@ do = {
 }
 
 
-try:
+try:                          # Вызываем те или иные функции в зависимости от переданного параметра при вызове скрипта
     if sys.argv[1]:
         if os.path.isfile('settings.txt'):
             f = open('settings.txt', 'r')
@@ -117,16 +120,16 @@ except IndexError:
 print('\n')
 
 try:
-    dir_name = sys.argv[2]
+    dir_name = sys.argv[2]  # переменной dir_name передается название директории
 except IndexError:
     dir_name = None
 
 try:
-    file_name = sys.argv[2]  # второй параметр может указывать на файл, поэтому используем argv[2]
+    file_name = sys.argv[2]  # второй параметр может указывать на файл, поэтому используем и file_name = argv[2]
 except IndexError:
     file_name = None
 
-try:
+try:                        # принимаем в качестве ключа первый переданный параметр
     key = sys.argv[1]
 except IndexError:
     key = None
