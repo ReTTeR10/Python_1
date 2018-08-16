@@ -71,19 +71,19 @@ def sort_to_max(origin_list, start, end):    # сортируем по возр�
                 origin_list[j], origin_list[j + 1] = origin_list[j + 1], origin_list[j]
 
 
-class Cards:
+class Cards:                                # Объявляем класс карточек
     def __init__(self):
-        self.row_count = 3
-        self.column_count = 9
-        self.number_in_row_count = 5
-        self.numbers = random.sample(range(1, 91), 15)
+        self.row_count = 3                  # задаем кол-во строк
+        self.column_count = 9               # задаем кол-во столбиков
+        self.number_in_row_count = 5        # кол-во чисел в строке карточки
+        self.numbers = random.sample(range(1, 91), 15)      # Заполняем карточку случайными числами
         self.kegs_count = 15
-        self.distribution_row = list()
+        self.distribution_row = list()      # формируем список из последовательности бочонков
         for i in range(self.row_count):
             sort_to_max(self.numbers, self.number_in_row_count * i, self.number_in_row_count * (i + 1) - 1)
             self.distribution_row += random.sample(range(self.column_count), self.number_in_row_count)
 
-    def __str__(self):
+    def __str__(self):                      # перегружаем оператор для необходимого нам вывода вида карточки
         card = ''
         num_index = 0
         for row in range(self.row_count):
@@ -96,8 +96,8 @@ class Cards:
             card += '\n'
         return card
 
-    def delete_number(self, keg):
-        i = self.numbers.index(keg)
+    def delete_number(self, keg):           # удаляем выпавшие числа. Пытался менять их цвет, но что-то пошло не так
+        i = self.numbers.index(keg)         # поэтому отказался от этой затеи
         self.numbers[i] = '-'
         self.kegs_count -= 1
         return True
@@ -107,7 +107,7 @@ if input("\nКак насчет партейки в Лото? y/n\n") == 'y':
     player_card = Cards()
     computer_card = Cards()
     kegs = random.sample(range(1, 91), 90)
-    step = 0
+    step = 0                                    # ход
     ans = ''
     while player_card.kegs_count > 0 and computer_card.kegs_count > 0:
         if ans == 'q':
@@ -139,3 +139,5 @@ if input("\nКак насчет партейки в Лото? y/n\n") == 'y':
         print('Вы проиграли!')
     elif player_card.kegs_count == 0 and computer_card.kegs_count == 0:
         print('Ничья!')
+else:
+    print('Ну и зря =(')
