@@ -19,13 +19,13 @@ OpenWeatherMap — онлайн-сервис, который предостав�
     используя дополнительную библиотеку GRAB (pip install grab)
 
         Необходимо зарегистрироваться на сайте openweathermap.org:
-        https://home.openweathermap.org/users/sign_up
+        https://home.openweathermap.org/users/sign_up !
 
         Войти на сайт по ссылке:
-        https://home.openweathermap.org/users/sign_in
+        https://home.openweathermap.org/users/sign_in !
 
         Свой ключ "вытащить" со страницы отсюда:
-        https://home.openweathermap.org/api_keys
+        https://home.openweathermap.org/api_keys !
         
         Ключ имеет смысл сохранить в локальный файл, например, "app.id"
 
@@ -122,4 +122,126 @@ OpenWeatherMap — онлайн-сервис, который предостав�
         ...
 
 """
+import json
+import sys
+import datetime
 
+
+def time_converter(time):
+    converted_time = datetime.datetime.fromtimestamp(
+        int(time)
+    ).strftime('%I:%M %p')
+    return converted_time
+
+
+def get_city():
+    a = {}
+    city = sys.argv[1]
+    country = sys.argv[2]
+    with open('city_list.json', 'r', encoding='utf-8') as fh:
+        cities = json.load(fh)
+    for item in cities:
+        if city in item.values() and country in item.values():
+            a = item
+
+    print('a=', type(a), a)
+    print(a['id'])
+    return a['id']
+
+
+def get_data(city_id):
+    import urllib.request
+    with open('app.id', 'r') as f:
+        api_id = f.read()
+
+    print(city_id)
+    print(api_id)
+    url = 'https://api.openweathermap.org/data/2.5/weather?id={}&mode=json&units=metric$&' \
+          'appid={}'.format(str(city_id), str(api_id))
+
+
+    data_forecast = json.loads(urllib.request.urlopen(url).read().decode('utf-8'))
+
+    #print(data_forecast)
+    return data_forecast
+
+# def data_fetch(full_api_url):
+#     url = urllib.request.urlopen(full_api_url)
+#     output = url.read().decode('utf-8')
+#     raw_api_dict = json.loads(output)
+#     url.close()
+#     return raw_api_dict
+
+
+def data_organizer(raw_api_dict):
+    data = dict(
+        city=raw_api_dict.get('name'),
+        country=raw_api_dict.get('sys').get('country'),
+        temp=raw_api_dict.get('main').get('temp'),
+        temp_max=raw_api_dict.get('main').get('temp_max'),
+        temp_min=raw_api_dict.get('main').get('temp_min'),
+        humidity=raw_api_dict.get('main').get('humidity'),
+        pressure=raw_api_dict.get('main').get('pressure'),
+        sky=raw_api_dict['weather'][0]['main'],
+        sunrise=time_converter(raw_api_dict.get('sys').get('sunrise')),
+        sunset=time_converter(raw_api_dict.get('sys').get('sunset')),
+        wind=raw_api_dict.get('wind').get('speed'),
+        wind_deg=raw_api_dict.get('deg'),
+        dt=time_converter(raw_api_dict.get('dt')),
+        cloudiness=raw_api_dict.get('clouds').get('all')
+    )
+    return data
+
+# def data_organizer(raw_data):
+#     print('!!!!\n',type(raw_data))
+#
+#     main = raw_data.get('main')
+#     print(main)
+#     sys = raw_data.get('sys')
+#     print(sys)
+#     data = dict(
+#         city=raw_data.get('name'),
+#         country=sys.get('country'),
+#         temp=main.get('temp'),
+#         temp_max=main.get('temp_max'),
+#         temp_min=main.get('temp_min'),
+#         humidity=main.get('humidity'),
+#         pressure=main.get('pressure'),
+#         sky=raw_data['weather'][0]['main'],
+#         sunrise=time_converter(sys.get('sunrise')),
+#         sunset=time_converter(sys.get('sunset')),
+#         wind=raw_data.get('wind').get('speed'),
+#         wind_deg=raw_data.get('deg'),
+#         dt=time_converter(raw_data.get('dt')),
+#         cloudiness=raw_data.get('clouds').get('all')
+#     )
+#     return data
+
+
+def data_output(data):
+    m_symbol = '\xb0' + 'C'
+    print('---------------------------------------')
+    print('Current weather in: {}, {}:'.format(data['city'], data['country']))
+    print(data['temp'], m_symbol, data['sky'])
+    print('Max: {}, Min: {}'.format(data['temp_max'], data['temp_min']))
+    print('')
+    print('Wind Speed: {}, Degree: {}'.format(data['wind'], data['wind_deg']))
+    print('Humidity: {}'.format(data['humidity']))
+    print('Cloud: {}'.format(data['cloudiness']))
+    print('Pressure: {}'.format(data['pressure']))
+    print('Sunrise at: {}'.format(data['sunrise']))
+    print('Sunset at: {}'.format(data['sunset']))
+    print('')
+    print('Last update from the server: {}'.format(data['dt']))
+    print('---------------------------------------')
+
+# city_id = get_city()
+# data = get_data()
+# print(data)
+# data_organizer(data)
+# data_organizer(data)
+if __name__ == '__main__':
+    try:
+        data_output(data_organizer(get_data(get_city())))
+    except IOError:
+        print('no internet')
