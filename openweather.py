@@ -1,4 +1,4 @@
-
+__author__ = 'Мишин Егор Олегович'
 """ 
 == OpenWeatherMap ==
 
@@ -122,9 +122,35 @@ OpenWeatherMap — онлайн-сервис, который предостав�
         ...
 
 """
+
+"""
+OpenWeather
+"""
 import json
 import sys
 import datetime
+import sqlite3
+
+"""
+В программе реализовано 3 варианта работы. 
+1. Запуск через командную строку + имя города и 2 буквы страны на англ языке
+пример: python openweather.py Moscow RU, и она выведет погоду, так же там появятся строки с проверкой данных, не стал
+их удалять. Однако она некоректно работает с городами состоящими из двух слов, например New York US
+
+2. Запуск просто на исполнение и она попросит ввести название города и страны, пример: "Введите название" >>> Moscow RU
+
+3. Запуск через командную строку с несколькими городами: python openweather.py Moscow RU, Kazan RU и тп. 
+Код скрыт со 151 строки. 
+
+Айди для доступа к сайту хранится в app.id
+Список городов в json формате так же в папке, как и app.id
+Там же создается БД, но реализовать не успел. Так же не успел реализовать экспорт погоды из бд в разных форматах, 
+поэтому присутствует только файл openweather.py, который и является основным.
+
+Программа выполнена в соавторстве с Снегиревым Виктором и Швецом Александром
+
+"""
+
 
 
 def time_converter(time):
@@ -133,6 +159,87 @@ def time_converter(time):
     ).strftime('%I:%M %p')
     return converted_time
 
+# def get_city():
+#     if len(sys.argv)==3:
+#         a = {}
+#         city = sys.argv[1]
+#         country = sys.argv[2]
+#         with open('city_list.json', 'r', encoding='utf-8') as fh:
+#             cities = json.load(fh)
+#         for item in cities:
+#             if city in item.values() and country in item.values():
+#                 a = item
+#         return a['id']
+#     elif len(sys.argv) % 2 != 0:
+#         a = {}
+#         b=''
+#         for x in range(1,len(sys.argv),2):
+#             city = sys.argv[x]
+#             country = sys.argv[x+1]
+#             with open('city_list.json', 'r', encoding='utf-8') as fh:
+#                 cities = json.load(fh)
+#             for item in cities:
+#                     if city in item.values() and country in item.values():
+#                         a = item
+#             b += str(a['id']) + ','
+#         return b
+#
+#
+# def get_data(city_id):
+#     import urllib.request
+#     count = 1
+#     data_forecast2 = []
+#     with open('app.id', 'r') as f:
+#         api_id = f.read()
+#     if not ',' in str(city_id):
+#         url = 'https://api.openweathermap.org/data/2.5/weather?id={}&mode=json&&units=metric$&' \
+#           'appid={}'.format(str(city_id), str(api_id))
+#     else:
+#         url = 'https://api.openweathermap.org/data/2.5/group?id={}&mode=json&&units=metric$&' \
+#               'appid={}'.format(str(city_id[:-1]), str(api_id))
+#     data_forecast = json.loads(urllib.request.urlopen(url).read().decode('utf-8'))
+#     try:
+#         count = data_forecast['cnt']
+#         data_forecast = data_forecast['list']
+#         data_forecast2 = data_forecast
+#     except Exception:
+#         data_forecast2 += [data_forecast]
+#     return data_forecast2, count
+#
+# def data_organizer(raw_api_dict):
+#     for x in range(raw_api_dict[1]):
+#         data = dict(
+#             city=raw_api_dict[0][x].get('name'),
+#             country=raw_api_dict[0][x].get('sys').get('country'),
+#             temp=raw_api_dict[0][x].get('main').get('temp'),
+#             temp_max=raw_api_dict[0][x].get('main').get('temp_max'),
+#             temp_min=raw_api_dict[0][x].get('main').get('temp_min'),
+#             humidity=raw_api_dict[0][x].get('main').get('humidity'),
+#             pressure=raw_api_dict[0][x].get('main').get('pressure'),
+#             sky=raw_api_dict[0][x]['weather'][0]['main'],
+#             sunrise=time_converter(raw_api_dict[0][x].get('sys').get('sunrise')),
+#             sunset=time_converter(raw_api_dict[0][x].get('sys').get('sunset')),
+#             wind=raw_api_dict[0][x].get('wind').get('speed'),
+#             wind_deg=raw_api_dict[0][x].get('deg'),
+#             dt=time_converter(raw_api_dict[0][x].get('dt')),
+#             cloudiness=raw_api_dict[0][x].get('clouds').get('all')
+#         )
+#         m_symbol = '\xb0' + 'C'
+#         print('---------------------------------------')
+#         print('Current weather in: {}, {}:'.format(data['city'], data['country']))
+#         print(data['temp'], m_symbol, data['sky'])
+#         print('Max: {}, Min: {}'.format(data['temp_max'], data['temp_min']))
+#         print('')
+#         print('Wind Speed: {}, Degree: {}'.format(data['wind'], data['wind_deg']))
+#         print('Humidity: {}'.format(data['humidity']))
+#         print('Cloud: {}'.format(data['cloudiness']))
+#         print('Pressure: {}'.format(data['pressure']))
+#         print('Sunrise at: {}'.format(data['sunrise']))
+#         print('Sunset at: {}'.format(data['sunset']))
+#         print('')
+#         print('Last update from the server: {}'.format(data['dt']))
+#         print('---------------------------------------')
+#         data.clear()
 
 def get_city():
     a = {}
@@ -148,6 +255,18 @@ def get_city():
     print(a['id'])
     return a['id']
 
+# def get_city(vvod):    # здесь алгоритм для ввода с клавиатуры
+#     a = {}
+#     city = vvod[0]
+#     country = vvod[1]
+#     with open('city_list.json', 'r', encoding='utf-8') as fh:
+#         cities = json.load(fh)
+#     for item in cities:
+#         if city in item.values() and country in item.values():
+#             a = item
+#     return a['id']
+
+
 
 def get_data(city_id):
     import urllib.request
@@ -156,8 +275,8 @@ def get_data(city_id):
 
     print(city_id)
     print(api_id)
-    url = 'https://api.openweathermap.org/data/2.5/weather?id={}&mode=json&units=metric$&' \
-          'appid={}'.format(str(city_id), str(api_id))
+    url = 'http://api.openweathermap.org/data/2.5/' \
+          'weather?id={}&units=metric&appid={}'.format(str(city_id), str(api_id))
 
 
     data_forecast = json.loads(urllib.request.urlopen(url).read().decode('utf-8'))
@@ -165,12 +284,7 @@ def get_data(city_id):
     #print(data_forecast)
     return data_forecast
 
-# def data_fetch(full_api_url):
-#     url = urllib.request.urlopen(full_api_url)
-#     output = url.read().decode('utf-8')
-#     raw_api_dict = json.loads(output)
-#     url.close()
-#     return raw_api_dict
+
 
 
 def data_organizer(raw_api_dict):
@@ -192,30 +306,6 @@ def data_organizer(raw_api_dict):
     )
     return data
 
-# def data_organizer(raw_data):
-#     print('!!!!\n',type(raw_data))
-#
-#     main = raw_data.get('main')
-#     print(main)
-#     sys = raw_data.get('sys')
-#     print(sys)
-#     data = dict(
-#         city=raw_data.get('name'),
-#         country=sys.get('country'),
-#         temp=main.get('temp'),
-#         temp_max=main.get('temp_max'),
-#         temp_min=main.get('temp_min'),
-#         humidity=main.get('humidity'),
-#         pressure=main.get('pressure'),
-#         sky=raw_data['weather'][0]['main'],
-#         sunrise=time_converter(sys.get('sunrise')),
-#         sunset=time_converter(sys.get('sunset')),
-#         wind=raw_data.get('wind').get('speed'),
-#         wind_deg=raw_data.get('deg'),
-#         dt=time_converter(raw_data.get('dt')),
-#         cloudiness=raw_data.get('clouds').get('all')
-#     )
-#     return data
 
 
 def data_output(data):
@@ -235,13 +325,27 @@ def data_output(data):
     print('Last update from the server: {}'.format(data['dt']))
     print('---------------------------------------')
 
-# city_id = get_city()
-# data = get_data()
-# print(data)
-# data_organizer(data)
-# data_organizer(data)
+
 if __name__ == '__main__':
     try:
+        # vvod = input('Введите название города на английском и 2 буквы страны ').split(' ')
+        # data_output(data_organizer(get_data(get_city(vvod))))  # включить для ввода с клавиатуры
         data_output(data_organizer(get_data(get_city())))
     except IOError:
         print('no internet')
+
+
+
+
+conn = sqlite3.connect('weather.db')      # создается БД, дальше не успел
+cursor = conn.cursor()
+
+cursor.execute('''CREATE TABLE IF NOT EXISTS weather(
+                            city_id integer primary key,
+                            city varchar(255),
+                            data DATE,
+                            temperature integer,
+                            weather_id integer
+                 )''')
+cursor.execute('''SELECT * FROM weather''')
+print(cursor.fetchall())
